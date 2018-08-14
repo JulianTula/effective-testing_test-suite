@@ -7,7 +7,7 @@ public class Car {
 	
     public Car() {
     	rpm = 0;
-    	transmission = new AutomaticTransmission();
+    	transmission = new SequentialTransmission();
 	}
 	
 	public int getCurrentRmp() {
@@ -21,6 +21,7 @@ public class Car {
 
 	public void goForward() {
 		transmission.setMode("DRIVE");
+		transmission.gearUp();
 		System.out.println("Going forward. " + message + transmission.showCurrentGear());
 	}
 	
