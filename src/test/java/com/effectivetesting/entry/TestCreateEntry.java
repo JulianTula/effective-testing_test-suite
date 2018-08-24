@@ -14,7 +14,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.effectivetesting.pageobject.AdminHomePageObject;
 import com.effectivetesting.pageobject.LoginPageObject;
+import com.effectivetesting.pageobject.AdminEntryPageObject;
 
 public class TestCreateEntry {
 	private WebDriver driver;
@@ -43,16 +45,16 @@ public class TestCreateEntry {
 	@After
 	public void teardDown() {
 		driver.get("http://localhost:5000/admin/entry/");
-		driver.findElement(By.xpath("/html/body/div/table/tbody/tr/td[2]/form")).click();
+		AdminHomePageObject adminHome = new AdminHomePageObject(driver);
 		
-	    WebDriverWait wait = new WebDriverWait(driver, 10);
-	    Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-		   
-	    alert.accept();
-	    
-	    WebDriverWait waitForMessage = new WebDriverWait(driver, 10);
-	    waitForMessage.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div/div[2]")));
-	    
+		adminHome
+				.goToEntrySection();
+				
+		AdminEntryPageObject adminEntry = new AdminEntryPageObject(driver); 		
+				
+		adminEntry
+				.deleteEntry();
+		  
 	    driver.quit();
 	}
 }
